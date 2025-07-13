@@ -1,18 +1,24 @@
 public static void rotateMatrix(int[][] matrix) {
     int n = matrix.length;
-    int[][] rotated = new int[n][n];
-
-    rotated[0][0] = matrix[1][0];
-    rotated[0][1] = matrix[0][0];
-    rotated[0][2] = matrix[0][1];
-    rotated[1][0] = matrix[2][0];
-    rotated[1][1] = matrix[1][1];
-    rotated[1][2] = matrix[0][2];
-    rotated[2][0] = matrix[2][1];
-    rotated[2][1] = matrix[2][2];
-    rotated[2][2] = matrix[1][2];
+    int[][] result = new int[n][n];
 
     for (int i = 0; i < n; i++) {
-        System.arraycopy(rotated[i], 0, matrix[i], 0, n);
+        for (int j = 0; j < n; j++) {
+            if (j == 0) {
+                result[i][j] = matrix[(i + 1) % n][j];
+            } else if (j == n - 1) {
+                result[i][j] = matrix[(i + n - 1) % n][j];
+            } else if (i == 0) {
+                result[i][j] = matrix[i][j - 1];
+            } else if (i == n - 1) {
+                result[i][j] = matrix[i][j + 1];
+            } else {
+                result[i][j] = matrix[i][j];
+            }
+        }
+    }
+
+    for (int i = 0; i < n; i++) {
+        System.arraycopy(result[i], 0, matrix[i], 0, n);
     }
 }
